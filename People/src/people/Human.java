@@ -3,51 +3,50 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package people;
 
-/* Class Human */
+import java.awt.Color;
+
+/**
+ * Třída Human
+ * @author ucitel
+ */
 public class Human {
-    
-    /* Own selection type */
-    public enum Sex{
+    /* Vlastní výčtový typ */
+    public enum Sex {
         MAN, WOMAN
     }
-    
-    /* Attributes of this class */
+    /* Atributy třídy */
     private String name;
     private int age = 20;
     private int weight = 70;
     private float height = (float) 1.80;
     private Sex sex = Sex.MAN;
-             
-    /* Methods of the class Human */
-    // Contructor of Human class
-    public Human(String sign){
-        this.name = sign;
+    
+    /* Modifikátor 'protected' zabraňuje veřejnému přístupu k atributu,
+       ale daný atribut je přístupný pro všechny potomky třídy Human */
+    protected Color eyeColor = Color.BLUE;
+    
+    /* Metody třídy Human */
+    /* Konstruktor třídy Human */
+    public Human(String jmeno){
+       this.name = jmeno; 
     }
     
-    public Human(String sign, int age, Sex sex){
-        this.name = sign;
-        this.setAge(age);
-        this.setSex(sex);
+    public Human(String jmeno, int age, Sex sex){
+       this.name = jmeno; 
+       this.setAge(age);
+       this.setSex(sex);
     }
     
-    // Getters & Setters
+    /* Getters a Setters */
     public int getAge(){
-        return this.age;
+       return this.age;
     }
     
     public void setAge(int age){
-        try{
-            if(age > 0 && age < 130) this.age = age;
-        } catch(Exception e){
-            System.out.println("Age was not set correctly.");
-            this.age = 0;
-        }
-        /*do{
-           
-        }while(this.age == 0);*/
+        if (age > 0 && age < 130)
+            this.age = age;
     }
 
     public String getName() {
@@ -80,19 +79,20 @@ public class Human {
 
     public void setSex(Sex sex) {
         this.sex = sex;
-    }
-    
-    public String toString() {
-        String output = "My name is " + this.name + "\n";
-        output += "I am " + this.getSex() + "\n";
-        output += "Age: " + this.getAge() + " years old \n";
-        output += "Height: " + this.getHeight() + " m \n";
-        output += "Weight: " + this.getWeight() + " kg \n";
-        output += "BMI: " + this.getBMI() + " \n";
-        return output;
-    }
+    } 
     
     public double getBMI(){
-        return Math.round((this.getWeight() / Math.pow(this.getHeight(),2)) * 100.0) / 100.0;
+        return Math.round(this.weight/Math.pow(this.height,2)*100.0)/100.0;
+    }
+    
+    @Override
+    public String toString() {
+        String output = this.name + "[Human]";
+        /*output += "I'm " + this.getSex() + "\n";
+        output += "Age: " + this.getAge() + " let\n";
+        output += "Height: " + this.getHeight() + " m\n";
+        output += "Weight: " + this.getWeight() + " kg\n";
+        output += "BMI: " + this.getBMI() + "\n";*/
+        return output;
     }
 }
